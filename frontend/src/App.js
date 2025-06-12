@@ -227,7 +227,7 @@ function App() {
                 className="outlook-button p-1 rounded"
                 disabled={loading}
               >
-                <Refresh className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
               </button>
             </div>
 
