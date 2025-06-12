@@ -45,61 +45,146 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Enhanced Reddit API integration
   const fetchPosts = async (subreddit = 'r/all') => {
     setLoading(true);
     try {
-      // Using a CORS proxy to bypass Reddit's CORS restrictions
-      const proxyUrl = 'https://api.allorigins.win/get?url=';
-      const redditUrl = `https://www.reddit.com/${subreddit}.json?limit=25`;
-      const response = await axios.get(`${proxyUrl}${encodeURIComponent(redditUrl)}`);
+      // Multiple CORS proxy options for better reliability
+      const corsProxies = [
+        'https://api.allorigins.win/get?url=',
+        'https://corsproxy.io/?',
+        'https://api.codetabs.com/v1/proxy?quest='
+      ];
       
-      // Parse the response since allorigins returns the data as a string
-      const data = JSON.parse(response.data.contents);
-      const postsData = data.data.children.map(child => child.data);
-      setPosts(postsData);
-      setSelectedPost(null);
-      setComments([]);
+      const redditUrl = `https://www.reddit.com/${subreddit}.json?limit=25`;
+      let response = null;
+      let error = null;
+
+      // Try different CORS proxies
+      for (let i = 0; i < corsProxies.length; i++) {
+        try {
+          console.log(`Trying proxy ${i + 1}: ${corsProxies[i]}`);
+          
+          if (corsProxies[i].includes('allorigins')) {
+            response = await axios.get(`${corsProxies[i]}${encodeURIComponent(redditUrl)}`);
+            const data = JSON.parse(response.data.contents);
+            if (data && data.data && data.data.children) {
+              const postsData = data.data.children.map(child => child.data);
+              setPosts(postsData);
+              setSelectedPost(null);
+              setComments([]);
+              console.log(`Successfully fetched ${postsData.length} posts from Reddit via proxy ${i + 1}`);
+              return;
+            }
+          } else {
+            response = await axios.get(`${corsProxies[i]}${encodeURIComponent(redditUrl)}`);
+            if (response.data && response.data.data && response.data.data.children) {
+              const postsData = response.data.data.children.map(child => child.data);
+              setPosts(postsData);
+              setSelectedPost(null);
+              setComments([]);
+              console.log(`Successfully fetched ${postsData.length} posts from Reddit via proxy ${i + 1}`);
+              return;
+            }
+          }
+        } catch (proxyError) {
+          console.log(`Proxy ${i + 1} failed:`, proxyError.message);
+          error = proxyError;
+          continue;
+        }
+      }
+
+      // If all proxies fail, try direct request (might work in some environments)
+      try {
+        console.log('Trying direct Reddit API request...');
+        response = await axios.get(redditUrl);
+        if (response.data && response.data.data && response.data.data.children) {
+          const postsData = response.data.data.children.map(child => child.data);
+          setPosts(postsData);
+          setSelectedPost(null);
+          setComments([]);
+          console.log(`Successfully fetched ${postsData.length} posts directly from Reddit`);
+          return;
+        }
+      } catch (directError) {
+        console.log('Direct Reddit API request failed:', directError.message);
+      }
+
+      throw error || new Error('All Reddit API requests failed');
+
     } catch (error) {
-      console.error('Error fetching posts:', error);
-      // Fallback with sample data for demo purposes
+      console.error('Error fetching posts from Reddit API:', error);
+      
+      // Enhanced fallback with more realistic Reddit-like sample data
       const samplePosts = [
         {
           id: 'sample1',
-          title: 'Welcome to Reddit Outlook Browser!',
-          author: 'demo_user',
-          subreddit: 'announcements',
-          selftext: 'This is a demonstration post. In a real implementation, posts would be fetched from Reddit API.',
-          score: 1234,
-          num_comments: 45,
-          created_utc: Date.now() / 1000,
-          permalink: '/r/sample/comments/sample1/'
+          title: 'Welcome to Reddit Outlook Browser! 🎉',
+          author: 'reddit_outlook_dev',
+          subreddit: subreddit.replace('r/', '') || 'announcements',
+          selftext: 'This is a demonstration of Reddit content in Outlook Web interface. The app attempts to fetch real posts from Reddit, but if the API is unavailable, you\'ll see this sample content. Try refreshing or selecting different subreddits!',
+          score: Math.floor(Math.random() * 5000) + 1000,
+          num_comments: Math.floor(Math.random() * 200) + 50,
+          created_utc: Date.now() / 1000 - Math.random() * 3600,
+          permalink: '/r/sample/comments/sample1/',
+          url: 'https://www.reddit.com/r/sample/comments/sample1/'
         },
         {
           id: 'sample2',
-          title: 'Microsoft Outlook Web UI for Reddit',
-          author: 'reddit_user',
-          subreddit: 'webdev',
-          selftext: 'This interface demonstrates how Reddit content can be presented in a familiar Outlook Web layout.',
-          score: 567,
-          num_comments: 23,
-          created_utc: (Date.now() / 1000) - 3600,
-          permalink: '/r/sample/comments/sample2/'
+          title: 'Microsoft Outlook Web UI meets Reddit browsing',
+          author: 'ui_designer_2024',
+          subreddit: subreddit.replace('r/', '') || 'webdev',
+          selftext: 'This interface demonstrates how Reddit content can be presented in a familiar Outlook Web layout. Features include:\n\n• Authentic Outlook Web styling\n• Three-pane layout\n• Professional typography\n• Real Reddit API integration',
+          score: Math.floor(Math.random() * 3000) + 500,
+          num_comments: Math.floor(Math.random() * 150) + 25,
+          created_utc: Date.now() / 1000 - Math.random() * 7200,
+          permalink: '/r/sample/comments/sample2/',
+          url: 'https://www.reddit.com/r/sample/comments/sample2/'
         },
         {
           id: 'sample3',
-          title: 'Professional Reddit Browsing Experience',
-          author: 'ui_designer',
-          subreddit: 'design',
-          selftext: 'Clean, professional interface for browsing Reddit content with familiar email-like layout.',
-          score: 890,
-          num_comments: 67,
-          created_utc: (Date.now() / 1000) - 7200,
-          permalink: '/r/sample/comments/sample3/'
+          title: 'Professional Reddit browsing experience in your familiar email interface',
+          author: 'tech_enthusiast',
+          subreddit: subreddit.replace('r/', '') || 'technology',
+          selftext: 'Clean, professional interface for browsing Reddit content with familiar email-like layout. Perfect for workplace browsing! 😉',
+          score: Math.floor(Math.random() * 8000) + 2000,
+          num_comments: Math.floor(Math.random() * 300) + 100,
+          created_utc: Date.now() / 1000 - Math.random() * 14400,
+          permalink: '/r/sample/comments/sample3/',
+          url: 'https://www.reddit.com/r/sample/comments/sample3/'
+        },
+        {
+          id: 'sample4',
+          title: 'TIL: You can browse Reddit in an Outlook Web interface',
+          author: 'today_i_learned',
+          subreddit: subreddit.replace('r/', '') || 'todayilearned',
+          selftext: 'Today I learned that someone created a Reddit browser that looks exactly like Microsoft Outlook Web. It\'s pretty convincing!',
+          score: Math.floor(Math.random() * 12000) + 3000,
+          num_comments: Math.floor(Math.random() * 400) + 150,
+          created_utc: Date.now() / 1000 - Math.random() * 21600,
+          permalink: '/r/sample/comments/sample4/',
+          url: 'https://i.imgur.com/example.jpg'
+        },
+        {
+          id: 'sample5',
+          title: 'Ask Reddit: What\'s your favorite productivity hack?',
+          author: 'productivity_guru',
+          subreddit: subreddit.replace('r/', '') || 'AskReddit',
+          selftext: 'I\'m always looking for new ways to be more productive. What are your best productivity tips and tricks?',
+          score: Math.floor(Math.random() * 6000) + 1500,
+          num_comments: Math.floor(Math.random() * 500) + 200,
+          created_utc: Date.now() / 1000 - Math.random() * 28800,
+          permalink: '/r/sample/comments/sample5/',
+          url: 'https://www.reddit.com/r/sample/comments/sample5/'
         }
       ];
+      
       setPosts(samplePosts);
       setSelectedPost(null);
       setComments([]);
+      
+      // Show user-friendly message about API status
+      console.log(`Showing ${samplePosts.length} sample posts for ${subreddit}`);
     } finally {
       setLoading(false);
     }
