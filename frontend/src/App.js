@@ -174,28 +174,36 @@ function App() {
   }, [activeSubreddit]);
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
-      <div className="h-12 bg-outlook-blue flex items-center px-4 text-white outlook-shadow">
-        <div className="flex items-center space-x-6">
-          <h1 className="text-lg font-semibold">Reddit</h1>
-          <div className="flex items-center space-x-4">
-            <Mail className="w-5 h-5 cursor-pointer hover:bg-outlook-light-blue p-1 rounded" />
-            <Calendar className="w-5 h-5 cursor-pointer hover:bg-outlook-light-blue p-1 rounded" />
-            <Users className="w-5 h-5 cursor-pointer hover:bg-outlook-light-blue p-1 rounded" />
+    <div className="h-screen flex flex-col bg-outlook-light-gray font-segoe">
+      {/* Authentic Outlook Web Navigation Bar */}
+      <div className="h-12 outlook-nav flex items-center px-4 text-white outlook-shadow">
+        <div className="flex items-center space-x-1">
+          <div className="w-8 h-8 flex items-center justify-center">
+            <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
+              <Mail className="w-4 h-4 text-outlook-blue" />
+            </div>
           </div>
+          <h1 className="text-lg font-normal ml-2">Outlook</h1>
         </div>
         <div className="ml-auto flex items-center space-x-4">
           <div className="relative">
             <Search className="w-4 h-4 absolute left-3 top-2.5 text-gray-400" />
             <input
               type="text"
-              placeholder="Search Reddit..."
+              placeholder="Search mail and people"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 w-80 rounded-md text-black border-none outline-none"
+              className="pl-10 pr-4 py-2 w-96 rounded-sm text-black border-none outline-none text-sm"
             />
           </div>
-          <Settings className="w-5 h-5 cursor-pointer hover:bg-outlook-light-blue p-1 rounded" />
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-outlook-light-blue hover:bg-outlook-dark-blue rounded-full flex items-center justify-center cursor-pointer">
+              <Settings className="w-4 h-4" />
+            </div>
+            <div className="w-8 h-8 bg-outlook-blue rounded-full flex items-center justify-center cursor-pointer">
+              <span className="text-sm font-semibold">U</span>
+            </div>
+          </div>
         </div>
       </div>
 
