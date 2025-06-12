@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outlook Reddit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header class="topbar">
+            <h1>Outlook Reddit</h1>
+            <div class="subreddit-input">
+                <input type="text" id="subreddit" placeholder="Enter subreddit" />
+                <button id="load">Load</button>
+            </div>
+        </header>
+        <div class="container">
+            <nav class="sidebar">
+                <ul id="subreddit-list">
+                    <li data-subreddit="popular">r/popular</li>
+                    <li data-subreddit="news">r/news</li>
+                    <li data-subreddit="funny">r/funny</li>
+                </ul>
+            </nav>
+            <main class="main">
+                <ul id="posts" class="post-list"></ul>
+            </main>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
