@@ -309,6 +309,20 @@ function App() {
     fetchComments(post.subreddit, post.id);
   };
 
+  // Add new subreddit function
+  const addSubreddit = () => {  
+    if (newSubreddit.trim() && !subreddits.some(s => s.name === `r/${newSubreddit.trim()}`)) {
+      const formattedName = newSubreddit.startsWith('r/') ? newSubreddit : `r/${newSubreddit}`;
+      setSubreddits([...subreddits, {
+        name: formattedName,
+        displayName: formattedName.replace('r/', ''),
+        icon: '📁'
+      }]);
+      setNewSubreddit('');
+      setShowAddSubreddit(false);
+    }
+  };
+
   const formatTime = (timestamp) => {
     const date = new Date(timestamp * 1000);
     const now = new Date();
