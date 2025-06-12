@@ -1,32 +1,60 @@
+/* More authentic Outlook Web styling */
 .outlook-shadow {
   box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
 }
 
+.outlook-shadow-strong {
+  box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+}
+
 .outlook-button {
   transition: all 0.1s ease-in-out;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 .outlook-button:hover {
   background-color: #f3f2f1;
 }
 
+.outlook-button:active {
+  background-color: #edebe9;
+}
+
+/* More authentic post item styling like Outlook emails */
 .post-item {
   border-bottom: 1px solid #e1dfdd;
-  transition: background-color 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 .post-item:hover {
   background-color: #f8f7f6;
+  border-left: 3px solid transparent;
 }
 
 .post-item.selected {
-  background-color: #e3f2fd;
+  background-color: #deecf9;
   border-left: 3px solid #0078d4;
+  box-shadow: inset 3px 0 0 #0078d4;
 }
 
+.post-item.unread {
+  font-weight: 600;
+  background-color: #ffffff;
+}
+
+.post-item.read {
+  color: #605e5c;
+  background-color: #faf9f8;
+}
+
+/* Authentic Outlook sidebar styling */
 .sidebar-item {
-  transition: background-color 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   cursor: pointer;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  border-radius: 2px;
+  margin: 1px 4px;
 }
 
 .sidebar-item:hover {
@@ -34,15 +62,86 @@
 }
 
 .sidebar-item.active {
-  background-color: #e3f2fd;
-  border-right: 3px solid #0078d4;
+  background-color: #deecf9;
+  color: #005a9e;
   font-weight: 600;
+  border-left: 3px solid #0078d4;
+  margin-left: 1px;
+}
+
+/* Outlook Web typography */
+.outlook-typography {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.outlook-header-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #323130;
+}
+
+.outlook-body-text {
+  font-size: 14px;
+  color: #323130;
+  line-height: 1.4;
+}
+
+.outlook-secondary-text {
+  font-size: 12px;
+  color: #605e5c;
+}
+
+/* More authentic reading pane */
+.reading-pane {
+  background-color: #ffffff;
+  border-left: 1px solid #e1dfdd;
+}
+
+.reading-pane-header {
+  background-color: #faf9f8;
+  border-bottom: 1px solid #e1dfdd;
+  padding: 16px 20px;
+}
+
+/* Authentic Outlook navigation bar */
+.outlook-nav {
+  background: linear-gradient(180deg, #0078d4 0%, #106ebe 100%);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Outlook Web command bar styling */
+.command-bar {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #e1dfdd;
+  height: 44px;
+}
+
+.command-button {
+  color: #323130;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 12px;
+  border-radius: 2px;
+  transition: all 0.1s ease;
+}
+
+.command-button:hover {
+  background-color: #f3f2f1;
+  color: #005a9e;
+}
+
+/* Reddit content styling in reading pane */
+.reddit-content {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  color: #323130;
 }
 
 .reddit-content img {
   max-width: 100%;
   height: auto;
   border-radius: 4px;
+  margin: 8px 0;
 }
 
 .reddit-content pre {
@@ -51,11 +150,43 @@
   border-radius: 6px;
   overflow-x: auto;
   font-size: 13px;
+  border-left: 4px solid #0078d4;
 }
 
 .reddit-content blockquote {
-  border-left: 4px solid #d0d7de;
+  border-left: 4px solid #0078d4;
   padding-left: 16px;
   margin-left: 0;
-  color: #656d76;
+  color: #605e5c;
+  font-style: italic;
+}
+
+/* Comment styling like Outlook conversation view */
+.comment-item {
+  border-left: 2px solid #e1dfdd;
+  margin-left: 8px;
+  padding-left: 12px;
+  margin-bottom: 12px;
+}
+
+.comment-item:hover {
+  border-left-color: #0078d4;
+}
+
+/* Scrollbar styling to match Outlook */
+.outlook-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.outlook-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.outlook-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.outlook-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
