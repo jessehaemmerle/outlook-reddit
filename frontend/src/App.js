@@ -24,16 +24,16 @@ import {
 } from 'lucide-react';
 
 const POPULAR_SUBREDDITS = [
-  { name: 'r/all', displayName: 'All Posts', icon: '🌐' },
-  { name: 'r/popular', displayName: 'Popular', icon: '🔥' },
-  { name: 'r/AskReddit', displayName: 'Ask Reddit', icon: '❓' },
-  { name: 'r/funny', displayName: 'Funny', icon: '😂' },
-  { name: 'r/pics', displayName: 'Pictures', icon: '📸' },
-  { name: 'r/todayilearned', displayName: 'Today I Learned', icon: '🧠' },
-  { name: 'r/worldnews', displayName: 'World News', icon: '🌍' },
-  { name: 'r/technology', displayName: 'Technology', icon: '💻' },
-  { name: 'r/programming', displayName: 'Programming', icon: '👨‍💻' },
-  { name: 'r/science', displayName: 'Science', icon: '🔬' }
+  { name: 'r/all', displayName: 'Inbox', icon: '📥', count: 12 },
+  { name: 'r/popular', displayName: 'Drafts', icon: '📝', count: 3 },
+  { name: 'r/AskReddit', displayName: 'Sent Items', icon: '📤', count: 0 },
+  { name: 'r/funny', displayName: 'Deleted Items', icon: '🗑️', count: 0 },
+  { name: 'r/pics', displayName: 'Junk Email', icon: '🚫', count: 2 },
+  { name: 'r/todayilearned', displayName: 'Archive', icon: '📁', count: 0 },
+  { name: 'r/worldnews', displayName: 'Notes', icon: '📋', count: 0 },
+  { name: 'r/technology', displayName: 'Groups', icon: '👥', count: 0 },
+  { name: 'r/programming', displayName: 'Contacts', icon: '👤', count: 0 },
+  { name: 'r/science', displayName: 'Tasks', icon: '✅', count: 0 }
 ];
 
 function App() {
