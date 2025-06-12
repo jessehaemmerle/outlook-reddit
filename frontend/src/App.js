@@ -12,7 +12,7 @@ import {
   ArrowDown,
   MessageCircle,
   ExternalLink,
-  Refresh
+  RefreshCw
 } from 'lucide-react';
 
 const POPULAR_SUBREDDITS = [
