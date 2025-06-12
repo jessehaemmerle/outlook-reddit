@@ -12,7 +12,15 @@ import {
   ArrowDown,
   MessageCircle,
   ExternalLink,
-  RefreshCw
+  RefreshCw,
+  Inbox,
+  Archive,
+  Delete,
+  Reply,
+  MoreHorizontal,
+  Filter,
+  Star,
+  Flag
 } from 'lucide-react';
 
 const POPULAR_SUBREDDITS = [
