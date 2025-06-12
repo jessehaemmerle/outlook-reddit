@@ -37,13 +37,15 @@ const POPULAR_SUBREDDITS = [
 ];
 
 function App() {
-  const [subreddits] = useState(POPULAR_SUBREDDITS);
+  const [subreddits, setSubreddits] = useState(POPULAR_SUBREDDITS);
   const [activeSubreddit, setActiveSubreddit] = useState('r/all');
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [newSubreddit, setNewSubreddit] = useState('');
+  const [showAddSubreddit, setShowAddSubreddit] = useState(false);
 
   // Enhanced Reddit API integration
   const fetchPosts = async (subreddit = 'r/all') => {
