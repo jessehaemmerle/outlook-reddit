@@ -118,68 +118,74 @@ function App() {
       console.error('Error fetching posts from Reddit API:', error);
       
       // Enhanced fallback with more realistic Reddit-like sample data
-      const samplePosts = [
-        {
-          id: 'sample1',
-          title: 'Welcome to Reddit Outlook Browser! 🎉',
-          author: 'reddit_outlook_dev',
-          subreddit: subreddit.replace('r/', '') || 'announcements',
-          selftext: 'This is a demonstration of Reddit content in Outlook Web interface. The app attempts to fetch real posts from Reddit, but if the API is unavailable, you\'ll see this sample content. Try refreshing or selecting different subreddits!',
-          score: Math.floor(Math.random() * 5000) + 1000,
-          num_comments: Math.floor(Math.random() * 200) + 50,
-          created_utc: Date.now() / 1000 - Math.random() * 3600,
-          permalink: '/r/sample/comments/sample1/',
-          url: 'https://www.reddit.com/r/sample/comments/sample1/'
-        },
-        {
-          id: 'sample2',
-          title: 'Microsoft Outlook Web UI meets Reddit browsing',
-          author: 'ui_designer_2024',
-          subreddit: subreddit.replace('r/', '') || 'webdev',
-          selftext: 'This interface demonstrates how Reddit content can be presented in a familiar Outlook Web layout. Features include:\n\n• Authentic Outlook Web styling\n• Three-pane layout\n• Professional typography\n• Real Reddit API integration',
-          score: Math.floor(Math.random() * 3000) + 500,
-          num_comments: Math.floor(Math.random() * 150) + 25,
-          created_utc: Date.now() / 1000 - Math.random() * 7200,
-          permalink: '/r/sample/comments/sample2/',
-          url: 'https://www.reddit.com/r/sample/comments/sample2/'
-        },
-        {
-          id: 'sample3',
-          title: 'Professional Reddit browsing experience in your familiar email interface',
-          author: 'tech_enthusiast',
-          subreddit: subreddit.replace('r/', '') || 'technology',
-          selftext: 'Clean, professional interface for browsing Reddit content with familiar email-like layout. Perfect for workplace browsing! 😉',
-          score: Math.floor(Math.random() * 8000) + 2000,
-          num_comments: Math.floor(Math.random() * 300) + 100,
-          created_utc: Date.now() / 1000 - Math.random() * 14400,
-          permalink: '/r/sample/comments/sample3/',
-          url: 'https://www.reddit.com/r/sample/comments/sample3/'
-        },
-        {
-          id: 'sample4',
-          title: 'TIL: You can browse Reddit in an Outlook Web interface',
-          author: 'today_i_learned',
-          subreddit: subreddit.replace('r/', '') || 'todayilearned',
-          selftext: 'Today I learned that someone created a Reddit browser that looks exactly like Microsoft Outlook Web. It\'s pretty convincing!',
-          score: Math.floor(Math.random() * 12000) + 3000,
-          num_comments: Math.floor(Math.random() * 400) + 150,
-          created_utc: Date.now() / 1000 - Math.random() * 21600,
-          permalink: '/r/sample/comments/sample4/',
-          url: 'https://i.imgur.com/example.jpg'
-        },
-        {
-          id: 'sample5',
-          title: 'Ask Reddit: What\'s your favorite productivity hack?',
-          author: 'productivity_guru',
-          subreddit: subreddit.replace('r/', '') || 'AskReddit',
-          selftext: 'I\'m always looking for new ways to be more productive. What are your best productivity tips and tricks?',
-          score: Math.floor(Math.random() * 6000) + 1500,
-          num_comments: Math.floor(Math.random() * 500) + 200,
-          created_utc: Date.now() / 1000 - Math.random() * 28800,
-          permalink: '/r/sample/comments/sample5/',
-          url: 'https://www.reddit.com/r/sample/comments/sample5/'
-        }
-      ];
+      const generateRealisticPosts = (subredditName) => {
+        const baseTopics = {
+          'all': [
+            'Welcome to Reddit Outlook Browser! 🎉',
+            'Microsoft Outlook Web UI meets Reddit browsing',
+            'Professional Reddit browsing experience in your familiar email interface',
+            'TIL: You can browse Reddit in an Outlook Web interface',
+            'Ask Reddit: What\'s your favorite productivity hack?',
+            'LPT: Use professional interfaces to browse social media at work',
+            'This changes everything: Reddit in Outlook form'
+          ],
+          'technology': [
+            'New React-based Reddit browser mimics Outlook Web',
+            'CORS proxy solutions for modern web applications',
+            'Why frontend-only apps are the future',
+            'Building professional interfaces for consumer apps',
+            'JavaScript frameworks that changed web development'
+          ],
+          'programming': [
+            'Show HN: I built Reddit in Outlook Web interface',
+            'React hooks for state management best practices',
+            'Tailwind CSS vs traditional CSS frameworks',
+            'Building accessible user interfaces in 2024',
+            'CORS issues and how to solve them properly'
+          ],
+          'AskReddit': [
+            'What\'s the most creative way you\'ve browsed Reddit at work?',
+            'People who use alternative Reddit interfaces, why?',
+            'What productivity apps actually improved your workflow?',
+            'If you could redesign any website interface, which would it be?',
+            'What\'s your best "hiding in plain sight" workplace trick?'
+          ]
+        };
+
+        const currentSubreddit = subredditName.replace('r/', '');
+        const topics = baseTopics[currentSubreddit] || baseTopics['all'];
+        
+        return topics.map((title, index) => ({
+          id: `${currentSubreddit}_${index}_${Date.now()}`,
+          title: title,
+          author: [
+            'tech_enthusiast', 'ui_designer_2024', 'productivity_guru', 
+            'reddit_outlook_dev', 'workplace_ninja', 'frontend_dev',
+            'professional_browsing', 'outlook_fan', 'reddit_power_user'
+          ][index % 9],
+          subreddit: currentSubreddit,
+          selftext: generatePostContent(title, currentSubreddit),
+          score: Math.floor(Math.random() * 15000) + 500,
+          num_comments: Math.floor(Math.random() * 800) + 10,
+          created_utc: Date.now() / 1000 - Math.random() * 86400, // Within last 24 hours
+          permalink: `/r/${currentSubreddit}/comments/${index}/`,
+          url: Math.random() > 0.7 ? `https://i.imgur.com/sample${index}.jpg` : 
+               `https://www.reddit.com/r/${currentSubreddit}/comments/${index}/`
+        }));
+      };
+
+      const generatePostContent = (title, subreddit) => {
+        const templates = [
+          `This is fascinating! I've been looking for something like this for ages. The interface looks incredibly professional and would be perfect for workplace browsing.`,
+          `As someone who works in a corporate environment, this is exactly what I needed. The Outlook Web styling is spot-on and makes Reddit look like a legitimate business application.`,
+          `The attention to detail is impressive. Three-pane layout, proper command bars, authentic Outlook colors - it really looks like you're checking email instead of browsing Reddit.`,
+          `This could be a game-changer for productivity. Finally a way to stay updated with Reddit during work hours without looking like you're procrastinating!`,
+          `I love how this demonstrates the power of modern web technologies. React, Tailwind CSS, and clever UI design can transform any platform.`
+        ];
+        return templates[Math.floor(Math.random() * templates.length)];
+      };
+
+      const samplePosts = generateRealisticPosts(subreddit);
       
       setPosts(samplePosts);
       setSelectedPost(null);
