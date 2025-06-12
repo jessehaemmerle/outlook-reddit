@@ -1,0 +1,61 @@
+.outlook-shadow {
+  box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+}
+
+.outlook-button {
+  transition: all 0.1s ease-in-out;
+}
+
+.outlook-button:hover {
+  background-color: #f3f2f1;
+}
+
+.post-item {
+  border-bottom: 1px solid #e1dfdd;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.post-item:hover {
+  background-color: #f8f7f6;
+}
+
+.post-item.selected {
+  background-color: #e3f2fd;
+  border-left: 3px solid #0078d4;
+}
+
+.sidebar-item {
+  transition: background-color 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.sidebar-item:hover {
+  background-color: #f3f2f1;
+}
+
+.sidebar-item.active {
+  background-color: #e3f2fd;
+  border-right: 3px solid #0078d4;
+  font-weight: 600;
+}
+
+.reddit-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.reddit-content pre {
+  background-color: #f6f8fa;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 13px;
+}
+
+.reddit-content blockquote {
+  border-left: 4px solid #d0d7de;
+  padding-left: 16px;
+  margin-left: 0;
+  color: #656d76;
+}
