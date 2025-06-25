@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  reddit-outlook-browser:
+    build: .
+    container_name: reddit-outlook-browser
+    ports:
+      - "6060:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - reddit-outlook-network
+
+networks:
+  reddit-outlook-network:
+    driver: bridge
