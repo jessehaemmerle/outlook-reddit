@@ -6,15 +6,15 @@ echo "🐳 Building and deploying Reddit Outlook Browser..."
 
 # Stop and remove existing container if running
 echo "📦 Stopping existing container..."
-docker-compose down 2>/dev/null || true
+docker compose down 2>/dev/null || true
 
 # Build the Docker image
 echo "🔨 Building Docker image..."
-docker-compose build --no-cache
+docker compose build --no-cache
 
 # Start the container
 echo "🚀 Starting container on port 6060..."
-docker-compose up -d
+docker compose up -d
 
 # Wait for container to be ready
 echo "⏳ Waiting for application to start..."
@@ -28,6 +28,6 @@ if docker-compose ps | grep -q "Up"; then
     echo "🛑 Stop with: docker-compose down"
 else
     echo "❌ Failed to start container. Check logs:"
-    docker-compose logs
+    docker compose logs
     exit 1
 fi
